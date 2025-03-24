@@ -962,7 +962,18 @@ func UnaryOp(op token.Token, y Value, prec uint) Value {
 		case unknownVal, int64Val, intVal, ratVal, floatVal, complexVal:
 			return y
 		}
-
+	
+	case token.DOLLAR:
+		switch y := y.(type) {
+		case unknownVal:
+		 return y
+		case intVal:
+		 return makeInt(newInt().Sqrt(y.val))
+		case int64Val:
+		 return makeInt(newInt().Sqrt(big.NewInt(int64(y))))
+		default:
+		 goto Error
+		}
 	case token.SUB:
 		switch y := y.(type) {
 		case unknownVal:

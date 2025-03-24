@@ -2010,3 +2010,28 @@ func TestFloat64(t *testing.T) {
 		}
 	}
 }
+
+func TestCom(t *testing.T) {
+	var z Int
+	for _, test := range []struct {
+		n    int64
+		want string
+	}{
+	   {-7, "6"},
+	   {-2, "1"},
+	   {-1, "0"},
+	   {0, "-1"},
+	   {4, "-5"},
+	   {5, "-6"},
+	   {6, "-7"},
+	   {7, "-8"},
+	   {8, "-9"},
+	   {15, "-16"},
+	   {-15, "14"},
+	} {
+		v := NewInt(test.n)
+		if got := z.Com(v).String(); got != test.want {
+			t.Errorf("Com(%+v) = %s; want %s", v, got, test.want)
+		}
+	}
+ }

@@ -1308,3 +1308,15 @@ func (z *Int) Sqrt(x *Int) *Int {
 	z.abs = z.abs.sqrt(nil, x.abs)
 	return z
 }
+
+// Com sets z to ~x and returns z.
+func (z *Int) Com(x *Int) *Int {
+	z.Set(x)
+	z.neg = !z.neg
+	if z.neg {
+	   z.abs = z.abs.add(x.abs, natOne)
+	} else {
+	   z.abs = z.abs.sub(x.abs, natOne)
+	}
+	return z
+ }

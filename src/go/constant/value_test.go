@@ -193,6 +193,9 @@ var opTests = []string{
 	`! false = true`,
 	`! ? = ?`,
 
+	`$ 2 = -3`,
+ 	`$ 60 = -61`,
+
 	// etc.
 
 	// binary operations
@@ -487,6 +490,8 @@ var optab = map[string]token.Token{
 	"*": token.MUL,
 	"/": token.QUO,
 	"%": token.REM,
+
+	"$": token.DOLLAR,
 
 	"<<": token.SHL,
 	">>": token.SHR,
