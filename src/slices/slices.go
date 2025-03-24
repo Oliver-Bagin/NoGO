@@ -517,3 +517,11 @@ func Repeat[S ~[]E, E any](x S, count int) S {
 	}
 	return newslice
 }
+
+// Add if not exists
+func InsertUnique[S ~[]E, E comparable](s S, v E) S {
+	if !Contains(s, v) {
+		return s
+	}
+	return Insert(s, 0, v)
+}
