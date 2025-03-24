@@ -108,6 +108,7 @@ var tokens = []elt{
 	{token.SHL, "<<", operator},
 	{token.SHR, ">>", operator},
 	{token.AND_NOT, "&^", operator},
+	{token.DOLLAR, "$", operator},
 
 	{token.ADD_ASSIGN, "+=", operator},
 	{token.SUB_ASSIGN, "-=", operator},
@@ -391,6 +392,7 @@ var semicolonTests = [...]struct{ input, want string }{
 	{"<<\n", "<<"},
 	{">>\n", ">>"},
 	{"&^\n", "&^"},
+	{"$\n", "$"},
 
 	{"+=\n", "+="},
 	{"-=\n", "-="},

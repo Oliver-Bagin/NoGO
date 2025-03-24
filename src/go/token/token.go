@@ -47,6 +47,7 @@ const (
 	SHL     // <<
 	SHR     // >>
 	AND_NOT // &^
+	DOLLAR      // $
 
 	ADD_ASSIGN // +=
 	SUB_ASSIGN // -=
@@ -156,6 +157,7 @@ var tokens = [...]string{
 	SHL:     "<<",
 	SHR:     ">>",
 	AND_NOT: "&^",
+	DOLLAR:      "$",
 
 	ADD_ASSIGN: "+=",
 	SUB_ASSIGN: "-=",
@@ -273,7 +275,7 @@ func (op Token) Precedence() int {
 		return 3
 	case ADD, SUB, OR, XOR:
 		return 4
-	case MUL, QUO, REM, SHL, SHR, AND, AND_NOT:
+	case MUL, QUO, REM, SHL, SHR, AND, AND_NOT, DOLLAR:
 		return 5
 	}
 	return LowestPrec

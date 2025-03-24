@@ -948,6 +948,8 @@ scanAgain:
 			}
 		case '|':
 			tok = s.switch3(token.OR, token.OR_ASSIGN, '|', token.LOR)
+		case '$':
+			tok = token.DOLLAR
 		case '~':
 			tok = token.TILDE
 		default:
