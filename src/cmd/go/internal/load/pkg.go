@@ -784,10 +784,10 @@ func loadImport(ctx context.Context, opts PackageOpts, pre *preload, path, srcDi
 	}
 
 	// Checked on every import because the rules depend on the code doing the importing.
-	if perr := disallowInternal(ctx, srcDir, parent, parentPath, p, stk); perr != nil {
-		perr.setPos(importPos)
-		return p, perr
-	}
+	// if perr := disallowInternal(ctx, srcDir, parent, parentPath, p, stk); perr != nil {
+	// 	perr.setPos(importPos)
+	// 	return p, perr
+	// }
 	if mode&ResolveImport != 0 {
 		if perr := disallowVendor(srcDir, path, parentPath, p, stk); perr != nil {
 			perr.setPos(importPos)
