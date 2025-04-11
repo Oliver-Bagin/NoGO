@@ -1,6 +1,6 @@
 module crypto/internal/fips140/bigmod/_asm
 
-go 1.25
+go 1.24.1
 
 require github.com/mmcloughlin/avo v0.6.0
 
