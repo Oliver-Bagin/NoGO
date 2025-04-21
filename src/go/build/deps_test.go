@@ -68,7 +68,7 @@ var depsRules = `
 	  unicode/utf16;
 
 	internal/goarch < internal/abi;
-	internal/byteorder, internal/goarch < internal/chacha8rand;
+	internal/byteorder, internal/cpu, internal/goarch < internal/chacha8rand;
 
 	# RUNTIME is the core runtime group of packages, all of them very light-weight.
 	internal/abi,
@@ -258,7 +258,27 @@ var depsRules = `
 	FMT, encoding, encoding/base32, encoding/base64, encoding/binary,
 	internal/saferio
 	< encoding/ascii85, encoding/csv, encoding/gob, encoding/hex,
-	  encoding/json, encoding/pem, encoding/xml, mime;
+	  encoding/pem, encoding/xml, mime;
+
+	STR, errors
+	< encoding/json/internal
+	< encoding/json/internal/jsonflags
+	< encoding/json/internal/jsonopts
+	< encoding/json/internal/jsonwire
+	< encoding/json/jsontext;
+
+	FMT,
+	encoding/hex,
+	encoding/base32,
+	encoding/base64,
+	encoding/binary,
+	encoding/json/jsontext,
+	encoding/json/internal,
+	encoding/json/internal/jsonflags,
+	encoding/json/internal/jsonopts,
+	encoding/json/internal/jsonwire
+	< encoding/json/v2
+	< encoding/json;
 
 	# hashes
 	io
@@ -763,9 +783,9 @@ var depsRules = `
 	< testing/internal/testdeps;
 
 	# Test-only packages can have anything they want
+	FMT, compress/gzip, embed, encoding/binary < encoding/json/internal/jsontest;
 	CGO, internal/syscall/unix < net/internal/cgotest;
-
-
+	FMT < math/big/internal/asmgen;
 `
 
 // listStdPkgs returns the same list of packages as "go list std".

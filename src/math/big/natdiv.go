@@ -605,9 +605,15 @@ func (z nat) divLarge(stk *stack, u, uIn, vIn nat) (q, r nat) {
 	defer stk.restore(stk.save())
 	shift := nlz(vIn[n-1])
 	v := stk.nat(n)
-	shlVU(v, vIn, shift)
 	u = u.make(len(uIn) + 1)
-	u[len(uIn)] = shlVU(u[:len(uIn)], uIn, shift)
+	if shift == 0 {
+		copy(v, vIn)
+		copy(u[:len(uIn)], uIn)
+		u[len(uIn)] = 0
+	} else {
+		lshVU(v, vIn, shift)
+		u[len(uIn)] = lshVU(u[:len(uIn)], uIn, shift)
+	}
 
 	// The caller should not pass aliased z and u, since those are
 	// the two different outputs, but correct just in case.
@@ -626,7 +632,9 @@ func (z nat) divLarge(stk *stack, u, uIn, vIn nat) (q, r nat) {
 	q = q.norm()
 
 	// Undo scaling of remainder.
-	shrVU(u, u, shift)
+	if shift != 0 {
+		rshVU(u, u, shift)
+	}
 	r = u.norm()
 
 	return q, r
@@ -691,9 +699,9 @@ func (q nat) divBasic(stk *stack, u, v nat) {
 		// Subtract q̂·v from the current section of u.
 		// If it underflows, q̂·v > u, which we fix up
 		// by decrementing q̂ and adding v back.
-		c := subVV(u[j:j+qhl], u[j:], qhatv)
+		c := subVV(u[j:j+qhl], u[j:j+qhl], qhatv[:qhl])
 		if c != 0 {
-			c := addVV(u[j:j+n], u[j:], v)
+			c := addVV(u[j:j+n], u[j:j+n], v)
 			// If n == qhl, the carry from subVV and the carry from addVV
 			// cancel out and don't affect u[j+n].
 			if n < qhl {

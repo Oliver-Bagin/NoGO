@@ -175,9 +175,6 @@ func TestIntendedInlining(t *testing.T) {
 		},
 		"math/big": {
 			"bigEndianWord",
-			// The following functions require the math_big_pure_go build tag.
-			"addVW",
-			"subVW",
 		},
 		"math/rand": {
 			"(*rngSource).Int63",
@@ -229,6 +226,9 @@ func TestIntendedInlining(t *testing.T) {
 			"(*Pointer[go.shape.int]).Load",
 			"(*Pointer[go.shape.int]).Store",
 			"(*Pointer[go.shape.int]).Swap",
+		},
+		"testing": {
+			"(*B).Loop",
 		},
 	}
 

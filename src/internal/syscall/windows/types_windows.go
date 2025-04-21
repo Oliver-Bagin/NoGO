@@ -14,6 +14,8 @@ const (
 	TCP_KEEPIDLE  = 0x03
 	TCP_KEEPCNT   = 0x10
 	TCP_KEEPINTVL = 0x11
+
+	SIO_UDP_NETRESET = syscall.IOC_IN | syscall.IOC_VENDOR | 15
 )
 
 const (
@@ -237,4 +239,12 @@ type FILE_RENAME_INFORMATION_EX struct {
 	RootDirectory  syscall.Handle
 	FileNameLength uint32
 	FileName       [syscall.MAX_PATH]uint16
+}
+
+// https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/ns-ntifs-_file_link_information
+type FILE_LINK_INFORMATION struct {
+	ReplaceIfExists bool
+	RootDirectory   syscall.Handle
+	FileNameLength  uint32
+	FileName        [syscall.MAX_PATH]uint16
 }

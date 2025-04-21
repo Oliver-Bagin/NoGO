@@ -1623,11 +1623,11 @@ func varCount1(loc, m string, cnt map[string]int) {
 // normalizeWhitespace replaces 2+ whitespace sequences with a single space.
 func normalizeWhitespace(x string) string {
 	x = strings.Join(strings.Fields(x), " ")
-	x = strings.Replace(x, "( ", "(", -1)
-	x = strings.Replace(x, " )", ")", -1)
-	x = strings.Replace(x, "[ ", "[", -1)
-	x = strings.Replace(x, " ]", "]", -1)
-	x = strings.Replace(x, ")=>", ") =>", -1)
+	x = strings.ReplaceAll(x, "( ", "(")
+	x = strings.ReplaceAll(x, " )", ")")
+	x = strings.ReplaceAll(x, "[ ", "[")
+	x = strings.ReplaceAll(x, " ]", "]")
+	x = strings.ReplaceAll(x, ")=>", ") =>")
 	return x
 }
 
@@ -1771,7 +1771,7 @@ func (op opData) auxType() string {
 	case "String":
 		return "string"
 	case "Sym":
-		// Note: a Sym can be an *obj.LSym, a *gc.Node, or nil.
+		// Note: a Sym can be an *obj.LSym, a *ir.Name, or nil.
 		return "Sym"
 	case "SymOff":
 		return "Sym"
